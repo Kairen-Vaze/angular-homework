@@ -1,2 +1,38 @@
-<app-server></app-server>
-<app-server></app-server>
+<h4>1. Add A button which says 'Display Details'</h4>
+<h4>2. Add a paragraph with any content of your choice (e.g. 'Secret Password = tuna')</h4>
+<h4>3. Toggle the display of that paragraph with the button created in the first step</h4>
+<h4>4. Log all button clicks in an array and output that array below the secret paragraph (maybe log a timestamp or simply an incrementing number)</h4>
+<h4>5. Starting at the 5th log item, give all future log items a blue background (via ngStyle) and white color (ngClass)</h4>
+<label>Creating Server Name: </label>
+
+<button (click)="toggleDisplayDetail()">Display Details</button>
+
+<p *ngIf="isDisplayDetail">Details Displayed</p>
+
+<div *ngFor="let click of totalClickTimes">
+  <p [ngStyle]="{color: clickTimes >= 5 ? 'cyan' : 'black'}">{{click}}</p>
+</div>
+
+<!-- <input
+	type="text"
+	class="form-control"
+	(input)="onUpdateServerName($event)"
+> -->
+<input type="text" class="form-control" [(ngModel)]="serverName" />
+<!-- <h4>Server Name will be created: {{ serverName }}</h4> -->
+<button
+  class="btn btn-primary"
+  [disabled]="!allowNewServer"
+  (click)="onCreateServer()"
+>
+  Add server
+</button>
+<!-- <h4 [innerText]="allowNewServer"></h4> -->
+<!-- <p>{{ serverCreationStatus }}</p> -->
+<p *ngIf="isServerCreated; else noServerCreated">
+  The server was created with the name: {{ serverName }}
+</p>
+<ng-template #noServerCreated>
+  <p>No server was created.</p>
+</ng-template>
+<app-server *ngFor="let server of serverList"> {{ server }}</app-server> 
